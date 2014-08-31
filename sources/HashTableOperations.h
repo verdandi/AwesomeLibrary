@@ -53,15 +53,17 @@ template<class Key, template<class> class Hasher> void  HashTableOperations<Key,
 	}//end of if 
 
 	Entry* currEntry = hashTable[index];
-	while ( currEntry->next_ != 0 ) {
+	Entry* prevEntry = nullptr;
+	do {
 		if ( currEntry->data_ == newEntry->data_ ) {
 			return;
 		}//end of if 
 
+		prevEntry = currEntry;
 		currEntry = currEntry->next_;
-	}//end of while
+	} while (currEntry != nullptr);
 
-	currEntry->next_ = newEntry;
+	prevEntry->next_ = newEntry;
 }//end of template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::insertEntry()
 
 template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::findEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const {
@@ -72,17 +74,13 @@ template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperation
 	}//end of if 
 
 	Entry* currEntry = hashTable[index];
-	while ( currEntry->next_ != 0 ) {
+	do {
 		if ( currEntry->data_ == entry->data_ ) {
 			return currEntry;
 		}//end of if 
 
 		currEntry = currEntry->next_;
-	}//end of while
-
-	if ( currEntry->data_ == entry->data_ ) {
-		return currEntry;
-	}//end of if 
+	} while ( currEntry != nullptr );
 
 	return nullptr;
 }//end of template<class Key, template<class> class Hasher> Entry* HashTableOperations<Key, Hasher>::findEntry()
