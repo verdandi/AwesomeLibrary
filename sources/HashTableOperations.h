@@ -37,6 +37,8 @@ public:
 	 * - entry - запись, которую необходимо найти
 	 * - hashTable - хэш-таблица, в которой необходимо осуществлять поиск
 	 * - hashTableSize - размер хэш-таблицы
+	 * Возвращаемое значение:
+	 * указатель на найденную запись, или nullptr если запись не найдена
 	 */
 	Entry* findEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const;
 
@@ -61,6 +63,29 @@ template<class Key, template<class> class Hasher> void  HashTableOperations<Key,
 
 	currEntry->next_ = newEntry;
 }//end of template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::insertEntry()
+
+template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::findEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const {
+	int index = Hasher<Key>::Hash(entry->data_) % hashTableSize;
+
+	if ( hashTable[index] == nullptr ) {
+		return nullptr;
+	}//end of if 
+
+	Entry* currEntry = hashTable[index];
+	while ( currEntry->next_ != 0 ) {
+		if ( currEntry->data_ == entry->data_ ) {
+			return currEntry;
+		}//end of if 
+
+		currEntry = currEntry->next_;
+	}//end of while
+
+	if ( currEntry->data_ == entry->data_ ) {
+		return currEntry;
+	}//end of if 
+
+	return nullptr;
+}//end of template<class Key, template<class> class Hasher> Entry* HashTableOperations<Key, Hasher>::findEntry()
 
 } /* Private */ 
 
