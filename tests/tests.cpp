@@ -5,6 +5,7 @@
 #include "RBTOperationsTest.h"
 #include "BSTOperationsTest.h"
 #include "TreeTest.h"
+#include "HashTableOperationsTest.h"
 
 int main(int argc, char *argv[]){
 	::testing::InitGoogleTest(&argc, argv);
