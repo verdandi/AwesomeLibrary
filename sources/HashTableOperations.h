@@ -29,7 +29,7 @@ public:
 	 * - hashTable - хэш-таблица, в которую следует вставить запись
 	 * - hashTableSize - размер хэш-таблицы
 	 */ 
-	void insertEntry(Entry* newEntry, Entry* hashTable[], int hashTableSize);
+	void InsertEntry(Entry* newEntry, Entry* hashTable[], int hashTableSize);
 
 	/*
 	 * найти запись в хэш-таблице
@@ -40,11 +40,11 @@ public:
 	 * Возвращаемое значение:
 	 * указатель на найденную запись, или nullptr если запись не найдена
 	 */
-	Entry* findEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const;
+	Entry* FindEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const;
 
 };//end of declaration class HashTableOperations 
 
-template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::insertEntry(Entry* newEntry, Entry* hashTable[], int hashTableSize) {
+template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::InsertEntry(Entry* newEntry, Entry* hashTable[], int hashTableSize) {
 	int index = Hasher<Key>::Hash(newEntry->data_) % hashTableSize;
 
 	if ( hashTable[index] == nullptr ) {
@@ -66,7 +66,7 @@ template<class Key, template<class> class Hasher> void  HashTableOperations<Key,
 	prevEntry->next_ = newEntry;
 }//end of template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::insertEntry()
 
-template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::findEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const {
+template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const {
 	int index = Hasher<Key>::Hash(entry->data_) % hashTableSize;
 
 	if ( hashTable[index] == nullptr ) {

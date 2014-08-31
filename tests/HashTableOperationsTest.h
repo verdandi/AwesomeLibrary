@@ -48,9 +48,9 @@ TEST_F(HashTableOperationsTest, should_add_new_entry_in_hash_table){
 	Entry<int> newEntry2(5);
 	Entry<int> newEntry3(1);
 
-	hto.insertEntry(&newEntry1, hashTable, size);
-	hto.insertEntry(&newEntry2, hashTable, size);
-	hto.insertEntry(&newEntry3, hashTable, size);
+	hto.InsertEntry(&newEntry1, hashTable, size);
+	hto.InsertEntry(&newEntry2, hashTable, size);
+	hto.InsertEntry(&newEntry3, hashTable, size);
 	Hasher<int> hasher;
 	int index = hasher.Hash(newEntry1.data_) % 4;
 
@@ -66,20 +66,20 @@ TEST_F(HashTableOperationsTest, should_find_entry){
 	HashTableOperations<int, Hasher> hto;
 
 	Entry<int> entry1(1);
-	Entry<int>* fEntry = hto.findEntry(&entry1, testHashTable_, SIZE);
+	Entry<int>* fEntry = hto.FindEntry(&entry1, testHashTable_, SIZE);
 	EXPECT_TRUE(fEntry == testEntry1_);
 
 
 	Entry<int> entry2(5);
-	fEntry = hto.findEntry(&entry2, testHashTable_, SIZE);
+	fEntry = hto.FindEntry(&entry2, testHashTable_, SIZE);
 	EXPECT_TRUE(fEntry == testEntry2_);
 
 	Entry<int> entry3(3);
-	fEntry = hto.findEntry(&entry3, testHashTable_, SIZE);
+	fEntry = hto.FindEntry(&entry3, testHashTable_, SIZE);
 	EXPECT_TRUE(fEntry == testEntry3_);
 
 	Entry<int> entry4(4);
-	fEntry = hto.findEntry(&entry4, testHashTable_, SIZE);
+	fEntry = hto.FindEntry(&entry4, testHashTable_, SIZE);
 	EXPECT_TRUE(fEntry == nullptr);
 }
 
