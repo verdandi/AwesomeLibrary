@@ -42,6 +42,16 @@ public:
 	 */
 	Entry* FindEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const;
 
+	/*
+	 * найти запись с минимальным ключем
+	 * Принимаемые параметры:
+	 * - hashTable - хэш-таблица в которой необходимо осуществлять поиск
+	 * - hashTableSize - размер хэш-таблицы
+	 * Возвращаемые параметры:
+	 * Указатель на запись с минимальным ключем или nullptr если хэш-таблица пуста
+	 */
+	Entry* FindMinimum(Entry* hashTable[], int hashTableSize) const;
+
 };//end of declaration class HashTableOperations 
 
 template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::InsertEntry(Entry* newEntry, Entry* hashTable[], int hashTableSize) {
@@ -84,6 +94,26 @@ template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperation
 
 	return nullptr;
 }//end of template<class Key, template<class> class Hasher> Entry* HashTableOperations<Key, Hasher>::findEntry()
+
+template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMinimum(Entry* hashTable[], int hashTableSize) const {
+	Entry* minimum = nullptr;
+	for (int i = 0; i < hashTableSize; ++i) {
+		Entry* currEntry = hashTable[i];
+		if ( currEntry == nullptr ) {
+			continue;
+		}//end of if 
+
+		do {
+			if ( ( minimum == nullptr ) || ( currEntry->data_ < minimum->data_ ) ) {
+				minimum = currEntry;
+			}//end of if 
+
+			currEntry = currEntry->next_;
+		} while ( currEntry != nullptr );
+	}//end of for
+
+	return minimum;
+}//end of tempate<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMinimum()
 
 } /* Private */ 
 

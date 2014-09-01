@@ -83,6 +83,12 @@ TEST_F(HashTableOperationsTest, should_find_entry){
 	EXPECT_TRUE(fEntry == nullptr);
 }
 
+TEST_F(HashTableOperationsTest, should_find_entry_with_minimal_key){
+	HashTableOperations<int, Hasher> hto;
+	Entry<int>* fEntry = hto.FindMinimum(testHashTable_, SIZE);
+	EXPECT_TRUE(fEntry->data_ == 1);
+}
+
 } /* Private */ 
 
 } /* AwesomeLibrary */ 
