@@ -52,6 +52,16 @@ public:
 	 */
 	Entry* FindMinimum(Entry* hashTable[], int hashTableSize) const;
 
+	/*
+	 * найти запись с максимальным ключем
+	 * Принимаемые параметры:
+	 * - hashTable - хэш-таблица в которой необходимо осуществлять поиск
+	 * - hashTableSize - размер хэш-таблицы
+	 * Возвращаемые параметры:
+	 * Указатель на запись с максимальным ключем или nullptr если хэш-таблица пуста
+	 */
+	Entry* FindMaximum(Entry* hashTable[], int hashTableSize) const;
+
 };//end of declaration class HashTableOperations 
 
 template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::InsertEntry(Entry* newEntry, Entry* hashTable[], int hashTableSize) {
@@ -114,6 +124,26 @@ template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperation
 
 	return minimum;
 }//end of tempate<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMinimum()
+
+template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMaximum(Entry* hashTable[], int hashTableSize) const {
+	Entry* maximum = nullptr;
+	for (int i = 0; i < hashTableSize; ++i) {
+		Entry* currEntry = hashTable[i];
+		if ( currEntry == nullptr ) {
+			continue;
+		}//end of if 
+
+		do {
+			if ( ( maximum == nullptr ) || ( currEntry->data_ > maximum->data_ ) ) {
+				maximum = currEntry;
+			}//end of if 
+
+			currEntry = currEntry->next_;
+		} while ( currEntry != nullptr );
+	}//end of for
+
+	return maximum;
+}//end of template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMaximum()
 
 } /* Private */ 
 

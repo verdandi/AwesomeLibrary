@@ -89,6 +89,12 @@ TEST_F(HashTableOperationsTest, should_find_entry_with_minimal_key){
 	EXPECT_TRUE(fEntry->data_ == 1);
 }
 
+TEST_F(HashTableOperationsTest, should_find_entry_with_maximal_key){
+	HashTableOperations<int, Hasher> hto;
+	Entry<int>* fEntry = hto.FindMaximum(testHashTable_, SIZE);
+	EXPECT_TRUE(fEntry->data_ == 5);
+}
+
 } /* Private */ 
 
 } /* AwesomeLibrary */ 
