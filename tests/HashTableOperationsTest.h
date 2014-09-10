@@ -59,6 +59,10 @@ TEST_F(HashTableOperationsTest, should_add_new_entry_in_hash_table){
 	EXPECT_TRUE(hashTable[index]->next_ == &newEntry2);
 	EXPECT_TRUE(hashTable[index]->next_->next_ == nullptr);
 
+	hashTable[index]->deleted_ = true;
+	hto.InsertEntry(&newEntry3, hashTable, size);
+	EXPECT_TRUE(hashTable[index]->next_->next_ == &newEntry3);
+
 	delete[] hashTable;
 }
 

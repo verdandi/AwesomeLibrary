@@ -101,7 +101,7 @@ void  HashTableOperations<Key, Hasher>::InsertEntry(Entry* newEntry, Entry* hash
 	Entry* currEntry = hashTable[index];
 	Entry* prevEntry = nullptr;
 	do {
-		if ( currEntry->data_ == newEntry->data_ ) {
+		if ( currEntry->data_ == newEntry->data_ && !currEntry->deleted_ ) {
 			return;
 		}//end of if 
 
