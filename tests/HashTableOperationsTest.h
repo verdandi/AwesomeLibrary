@@ -14,6 +14,7 @@ public:
 	Entry<int>* testEntry1_;
 	Entry<int>* testEntry2_;
 	Entry<int>* testEntry3_;
+	Entry<int>* testEntry4_;
 
 	Entry<int>** testHashTable_;
 
@@ -21,12 +22,15 @@ public:
 		testEntry1_ = new Entry<int>(1);
 		testEntry2_ = new Entry<int>(5);
 		testEntry3_ = new Entry<int>(3);
+		testEntry4_ = new Entry<int>(9);
 
 		testHashTable_ = new Entry<int>*[SIZE];
 		std::fill(testHashTable_, testHashTable_+SIZE, nullptr);
 		testHashTable_[1] = testEntry1_;
 		testHashTable_[1]->next_ = testEntry2_;
+		testHashTable_[1]->next_->next_ = testEntry4_;
 		testHashTable_[3] = testEntry3_;
+		testHashTable_[1]->next_->next_->deleted_ = true;
 	}
 
 	virtual void TearDown() {
@@ -34,6 +38,7 @@ public:
 		delete testEntry1_;
 		delete testEntry2_;
 		delete testEntry3_;
+		delete testEntry4_;
 	}
 
 };//end of declaration class HashTableOperationsTest: public ::testing::Test
@@ -84,6 +89,10 @@ TEST_F(HashTableOperationsTest, should_find_entry){
 
 	Entry<int> entry4(4);
 	fEntry = hto.FindEntry(&entry4, testHashTable_, SIZE);
+	EXPECT_TRUE(fEntry == nullptr);
+
+	Entry<int> entry5(9);
+	fEntry = hto.FindEntry(&entry5, testHashTable_, SIZE);
 	EXPECT_TRUE(fEntry == nullptr);
 }
 

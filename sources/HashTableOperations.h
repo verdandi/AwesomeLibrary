@@ -122,7 +122,7 @@ Entry<Key>* HashTableOperations<Key, Hasher>::FindEntry(Entry* entry, Entry* has
 
 	Entry* currEntry = hashTable[index];
 	do {
-		if ( currEntry->data_ == entry->data_ ) {
+		if ( currEntry->data_ == entry->data_  && !currEntry->deleted_) {
 			return currEntry;
 		}//end of if 
 
