@@ -62,9 +62,35 @@ public:
 	 */
 	Entry* FindMaximum(Entry* hashTable[], int hashTableSize) const;
 
+	/* найти запись с ключем, следующим по порядку за ключем заданной записи
+	 * Принимаемые параметры:
+	 * - entry - заданная запись
+	 * - hashTable - хэш-таблица, в которой необходимо осуществлять поиск
+	 * - hashTableSize - размер хэш-таблицы
+	 * Возвращаемые параметры:
+	 * указатель на найденную запись или nullptr
+	 * Примечание:
+	 * поиск будет осуществляться даже если заданная запись не пренадлежит хэш-таблице
+	 */
+	Entry* FindSuccessor(Entry* entry, Entry* hashTable[], int hashTableSize) const;
+
+	/* найти запись с ключем, предшествующимм по порядку ключу заданной записи
+	 * Принимаемые параметры:
+	 * - entry - заданная запись
+	 * - hashTable - хэш-таблица, в которой необходимо осуществлять поиск
+	 * - hashTableSize - размер хэш-таблицы
+	 * Возвращаемые параметры:
+	 * указатель на найденную запись или nullptr
+	 * Примечание:
+	 * поиск будет осуществляться даже если заданная запись не пренадлежит хэш-таблице
+	 */
+	Entry* FindPredecessor(Entry* entry, Entry* hashTable[], int hashTableSize) const;
+
+
 };//end of declaration class HashTableOperations 
 
-template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::InsertEntry(Entry* newEntry, Entry* hashTable[], int hashTableSize) {
+template<class Key, template<class> class Hasher>
+void  HashTableOperations<Key, Hasher>::InsertEntry(Entry* newEntry, Entry* hashTable[], int hashTableSize) {
 	int index = Hasher<Key>::Hash(newEntry->data_) % hashTableSize;
 
 	if ( hashTable[index] == nullptr ) {
@@ -86,7 +112,8 @@ template<class Key, template<class> class Hasher> void  HashTableOperations<Key,
 	prevEntry->next_ = newEntry;
 }//end of template<class Key, template<class> class Hasher> void  HashTableOperations<Key, Hasher>::insertEntry()
 
-template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const {
+template<class Key, template<class> class Hasher>
+Entry<Key>* HashTableOperations<Key, Hasher>::FindEntry(Entry* entry, Entry* hashTable[], int hashTableSize) const {
 	int index = Hasher<Key>::Hash(entry->data_) % hashTableSize;
 
 	if ( hashTable[index] == nullptr ) {
@@ -105,7 +132,8 @@ template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperation
 	return nullptr;
 }//end of template<class Key, template<class> class Hasher> Entry* HashTableOperations<Key, Hasher>::findEntry()
 
-template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMinimum(Entry* hashTable[], int hashTableSize) const {
+template<class Key, template<class> class Hasher>
+Entry<Key>* HashTableOperations<Key, Hasher>::FindMinimum(Entry* hashTable[], int hashTableSize) const {
 	Entry* minimum = nullptr;
 	for (int i = 0; i < hashTableSize; ++i) {
 		Entry* currEntry = hashTable[i];
@@ -125,7 +153,8 @@ template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperation
 	return minimum;
 }//end of tempate<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMinimum()
 
-template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMaximum(Entry* hashTable[], int hashTableSize) const {
+template<class Key, template<class> class Hasher>
+Entry<Key>* HashTableOperations<Key, Hasher>::FindMaximum(Entry* hashTable[], int hashTableSize) const {
 	Entry* maximum = nullptr;
 	for (int i = 0; i < hashTableSize; ++i) {
 		Entry* currEntry = hashTable[i];
@@ -144,6 +173,55 @@ template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperation
 
 	return maximum;
 }//end of template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindMaximum()
+
+template<class Key, template<class> class Hasher>
+Entry<Key>* HashTableOperations<Key, Hasher>::FindSuccessor(Entry* entry, Entry* hashTable[], int hashTableSize) const {
+	Entry* successor = nullptr;
+	for (int i = 0; i < hashTableSize; ++i) {
+		Entry* currEntry = hashTable[i];
+		if	( currEntry == nullptr ) {
+			continue;
+		}
+		
+		do {
+			if ( ( successor == nullptr ) && ( currEntry->data_ > entry->data_ ) ) {
+				successor = currEntry;
+			}//end of if
+			if ( ( successor != nullptr ) && ( currEntry->data_ > entry->data_ ) && ( currEntry->data_ < successor->data_ ) ) {
+				successor = currEntry;
+			}
+
+			currEntry = currEntry->next_;
+		} while ( currEntry != nullptr );
+	}//end of for
+
+	return successor;
+}//end of template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindSuccessor()
+
+template<class Key, template<class> class Hasher>
+Entry<Key>* HashTableOperations<Key, Hasher>::FindPredecessor(Entry* entry, Entry* hashTable[], int hashTableSize) const {
+	Entry* predecessor = nullptr;
+	for (int i = 0; i < hashTableSize; ++i) {
+		Entry* currEntry = hashTable[i];
+		if	( currEntry == nullptr ) {
+			continue;
+		}
+		
+		do {
+			if ( ( predecessor == nullptr ) && ( currEntry->data_ < entry->data_ ) ) {
+				predecessor = currEntry;
+			}//end of if
+			if ( ( predecessor != nullptr ) && ( currEntry->data_ < entry->data_ ) && ( currEntry->data_ > predecessor->data_ ) ) {
+				predecessor = currEntry;
+			}
+
+			currEntry = currEntry->next_;
+		} while ( currEntry != nullptr );
+	}//end of for
+
+	return predecessor;
+}//end of template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindPredecessor()
+
 
 } /* Private */ 
 

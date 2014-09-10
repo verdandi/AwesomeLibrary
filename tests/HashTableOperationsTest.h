@@ -95,6 +95,32 @@ TEST_F(HashTableOperationsTest, should_find_entry_with_maximal_key){
 	EXPECT_TRUE(fEntry->data_ == 5);
 }
 
+TEST_F(HashTableOperationsTest, should_find_successor){
+	HashTableOperations<int, Hasher> hto;
+	Entry<int> entry1(1);
+	Entry<int>* successor = hto.FindSuccessor(&entry1, testHashTable_, SIZE);
+	EXPECT_TRUE(successor->data_ == 3);
+
+	successor = hto.FindSuccessor(successor, testHashTable_, SIZE);
+	EXPECT_TRUE(successor->data_ == 5);
+
+	successor = hto.FindSuccessor(successor, testHashTable_, SIZE);
+	EXPECT_TRUE(successor == nullptr);
+}
+
+TEST_F(HashTableOperationsTest, should_find_predecessor){
+	HashTableOperations<int, Hasher> hto;
+	Entry<int> entry1(5);
+	Entry<int>* successor = hto.FindPredecessor(&entry1, testHashTable_, SIZE);
+	EXPECT_TRUE(successor->data_ == 3);
+
+	successor = hto.FindPredecessor(successor, testHashTable_, SIZE);
+	EXPECT_TRUE(successor->data_ == 1);
+
+	successor = hto.FindPredecessor(successor, testHashTable_, SIZE);
+	EXPECT_TRUE(successor == nullptr);
+}
+
 } /* Private */ 
 
 } /* AwesomeLibrary */ 

@@ -66,7 +66,7 @@ private:
 	Node* node_;
 };//end of declaration class ListIterator
 
-} /* Private */ 
+} /* Private */
 
 template<class Key, template<class> class Operations>
 class List: public Operations<Key> {
