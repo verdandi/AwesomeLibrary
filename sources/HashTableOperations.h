@@ -184,10 +184,11 @@ Entry<Key>* HashTableOperations<Key, Hasher>::FindSuccessor(Entry* entry, Entry*
 		}
 		
 		do {
-			if ( ( successor == nullptr ) && ( currEntry->data_ > entry->data_ ) ) {
+			if ( ( successor == nullptr && currEntry->data_ > entry->data_ ) && !currEntry->deleted_ ) {
 				successor = currEntry;
 			}//end of if
-			if ( ( successor != nullptr ) && ( currEntry->data_ > entry->data_ ) && ( currEntry->data_ < successor->data_ ) ) {
+			if ( ( successor != nullptr ) && ( currEntry->data_ > entry->data_ ) &&
+				( currEntry->data_ < successor->data_ ) && !currEntry->deleted_ ) {
 				successor = currEntry;
 			}
 
