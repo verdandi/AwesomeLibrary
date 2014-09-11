@@ -163,7 +163,7 @@ Entry<Key>* HashTableOperations<Key, Hasher>::FindMaximum(Entry* hashTable[], in
 		}//end of if 
 
 		do {
-			if ( ( maximum == nullptr ) || ( currEntry->data_ > maximum->data_ ) ) {
+			if ( ( maximum == nullptr  ||  currEntry->data_ > maximum->data_ ) && !currEntry->deleted_) {
 				maximum = currEntry;
 			}//end of if 
 

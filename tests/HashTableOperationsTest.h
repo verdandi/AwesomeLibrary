@@ -110,6 +110,10 @@ TEST_F(HashTableOperationsTest, should_find_entry_with_maximal_key){
 	HashTableOperations<int, Hasher> hto;
 	Entry<int>* fEntry = hto.FindMaximum(testHashTable_, SIZE);
 	EXPECT_TRUE(fEntry->data_ == 5);
+
+	testHashTable_[1]->next_->deleted_ = true;
+	fEntry = hto.FindMaximum(testHashTable_, SIZE);
+	EXPECT_EQ(3, fEntry->data_);
 }
 
 TEST_F(HashTableOperationsTest, should_find_successor){
