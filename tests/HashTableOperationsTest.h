@@ -140,6 +140,12 @@ TEST_F(HashTableOperationsTest, should_find_predecessor){
 	EXPECT_TRUE(successor == nullptr);
 }
 
+TEST_F(HashTableOperationsTest, should_delete_given_entry){
+	HashTableOperations<int, Hasher> hto;
+	hto.DeleteEntry(testEntry3_, testHashTable_, SIZE);
+	EXPECT_TRUE(testHashTable_[3]->deleted_);
+}
+
 } /* Private */ 
 
 } /* AwesomeLibrary */ 

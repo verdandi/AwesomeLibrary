@@ -86,6 +86,8 @@ public:
 	 */
 	Entry* FindPredecessor(Entry* entry, Entry* hashTable[], int hashTableSize) const;
 
+	void DeleteEntry(Entry* entry, Entry* hashTable[], int hashTableSize);
+
 
 };//end of declaration class HashTableOperations 
 
@@ -224,10 +226,27 @@ Entry<Key>* HashTableOperations<Key, Hasher>::FindPredecessor(Entry* entry, Entr
 	return predecessor;
 }//end of template<class Key, template<class> class Hasher> Entry<Key>* HashTableOperations<Key, Hasher>::FindPredecessor()
 
+template<class Key, template<class> class Hasher>
+void HashTableOperations<Key, Hasher>::DeleteEntry(Entry* entry, Entry* hashTable[], int hashTableSize) {
+	int index = Hasher<Key>::Hash(entry->data_) % hashTableSize;
+
+	if ( hashTable[index] == nullptr ) {
+		return;
+	}//end of if 
+
+	Entry* currEntry = hashTable[index];
+	do {
+		if ( currEntry->data_ == entry->data_ && !currEntry->deleted_ ) {
+			currEntry->deleted_ = true;
+			return;
+		}//end of if 
+
+		currEntry = currEntry->next_;
+	} while (currEntry != nullptr);
+}//end of template<class Key, template<class> class Hasher> void HashTableOperations<Key, Hasher>::DeleteEntry()
 
 } /* Private */ 
 
 } /* AwesomeLibrary */ 
 
 #endif /* end of include guard: HASH_TABLE_OPERATIONS_H_ */
-
