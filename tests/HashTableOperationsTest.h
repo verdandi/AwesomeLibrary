@@ -135,9 +135,7 @@ TEST_F(HashTableOperationsTest, should_find_predecessor){
 	Entry<int>* successor = hto.FindPredecessor(&entry1, testHashTable_, SIZE);
 	EXPECT_TRUE(successor->data_ == 3);
 
-	successor = hto.FindPredecessor(successor, testHashTable_, SIZE);
-	EXPECT_TRUE(successor->data_ == 1);
-
+	testHashTable_[1]->deleted_ = true;
 	successor = hto.FindPredecessor(successor, testHashTable_, SIZE);
 	EXPECT_TRUE(successor == nullptr);
 }

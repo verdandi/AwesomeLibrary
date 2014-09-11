@@ -209,10 +209,11 @@ Entry<Key>* HashTableOperations<Key, Hasher>::FindPredecessor(Entry* entry, Entr
 		}
 		
 		do {
-			if ( ( predecessor == nullptr ) && ( currEntry->data_ < entry->data_ ) ) {
+			if ( ( predecessor == nullptr ) && ( currEntry->data_ < entry->data_ ) && !currEntry->deleted_ ) {
 				predecessor = currEntry;
 			}//end of if
-			if ( ( predecessor != nullptr ) && ( currEntry->data_ < entry->data_ ) && ( currEntry->data_ > predecessor->data_ ) ) {
+			if ( ( predecessor != nullptr ) && ( currEntry->data_ < entry->data_ ) &&
+				( currEntry->data_ > predecessor->data_ ) && !currEntry->deleted_ ) {
 				predecessor = currEntry;
 			}
 
