@@ -142,7 +142,7 @@ Entry<Key>* HashTableOperations<Key, Hasher>::FindMinimum(Entry* hashTable[], in
 		}//end of if 
 
 		do {
-			if ( ( minimum == nullptr ) || ( currEntry->data_ < minimum->data_ ) ) {
+			if ( ( minimum == nullptr ||  currEntry->data_ < minimum->data_ )  && !currEntry->deleted_  ) {
 				minimum = currEntry;
 			}//end of if 
 

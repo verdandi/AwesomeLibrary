@@ -99,7 +99,11 @@ TEST_F(HashTableOperationsTest, should_find_entry){
 TEST_F(HashTableOperationsTest, should_find_entry_with_minimal_key){
 	HashTableOperations<int, Hasher> hto;
 	Entry<int>* fEntry = hto.FindMinimum(testHashTable_, SIZE);
-	EXPECT_TRUE(fEntry->data_ == 1);
+	EXPECT_EQ(1, fEntry->data_);
+
+	testHashTable_[1]->deleted_ = true;
+	fEntry = hto.FindMinimum(testHashTable_, SIZE);
+	EXPECT_EQ(3, fEntry->data_);
 }
 
 TEST_F(HashTableOperationsTest, should_find_entry_with_maximal_key){

@@ -27,7 +27,7 @@ macro(add_app_executable BUILD_TYPE) #макрос, выполняющий сб�
 		aux_source_directory("./tests" SOURCES_TEST)#задаем папки в которых хранятся исходники
 		link_directories("/usr/lib")
 		add_executable(${PROJECT}_test ${SOURCES_TEST}) #создаем динамическую библиотеку
-		set_target_properties(${PROJECT}_test PROPERTIES COMPILE_FLAGS "-O2 -std=c++0x -pedantic -Wall -Wextra -D__ALGORITHM_TEST__")#задаем ключи компилятора и макросы для цели ${PROJECT}
+		set_target_properties(${PROJECT}_test PROPERTIES COMPILE_FLAGS "-O2 -std=c++11 -pedantic -Wall -Wextra -D__ALGORITHM_TEST__")#задаем ключи компилятора и макросы для цели ${PROJECT}
 		target_link_libraries(${PROJECT}_test libgtest.a libgtest_main.a pthread)
 		add_custom_command(TARGET ${PROJECT}_test POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E make_directory ../${BUILD_TYPE}
@@ -41,7 +41,7 @@ macro(add_app_executable BUILD_TYPE) #макрос, выполняющий сб�
 		aux_source_directory("./tests" SOURCES_TEST)#задаем папки в которых хранятся исходники
 		link_directories("/usr/lib")
 		add_executable(${PROJECT}_debug_test ${SOURCES_TEST}) #создаем динамическую библиотеку
-		set_target_properties(${PROJECT}_debug_test PROPERTIES COMPILE_FLAGS "-O0 -g3 -std=c++0x -pedantic -Wall -Wextra -D__ALGORITHM_DEBUG__ -D__ALGORITHM_TEST__")#задаем ключи компилятора и макросы для цели ${PROJECT}
+		set_target_properties(${PROJECT}_debug_test PROPERTIES COMPILE_FLAGS "-O0 -g3 -std=c++11 -pedantic -Wall -Wextra -D__ALGORITHM_DEBUG__ -D__ALGORITHM_TEST__")#задаем ключи компилятора и макросы для цели ${PROJECT}
 		target_link_libraries(${PROJECT}_debug_test libgtest.a libgtest_main.a pthread)
 		add_custom_command(TARGET ${PROJECT}_debug_test POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E make_directory ../${BUILD_TYPE}
