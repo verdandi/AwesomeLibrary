@@ -19,7 +19,13 @@ template<class T> struct Entry {
 	bool deleted_;
 
 	explicit Entry (const T& newData): data_(newData), next_(nullptr), deleted_(false) {}
+	Entry (): data_(), next_(this), deleted_(false) {}
 	~Entry () {}
+
+	static Entry* Nil() {
+		static Entry nil;
+		return &nil;
+	}
 };//end of declaration class Entry
 
 } /* Private */ 
