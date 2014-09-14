@@ -1,6 +1,11 @@
 #ifndef HASH_TABLE_OPERATIONS_H_
 #define HASH_TABLE_OPERATIONS_H_
 
+/*
+ * developed by: Kuksov Pavel
+ * mail: aimed.fire@gmail.com
+ */
+
 #include "Entry.h"
 #include "Hasher.h"
 
